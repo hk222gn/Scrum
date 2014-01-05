@@ -1,0 +1,6 @@
+C:\Users\Andelina\Documents\GitHub\Scrum\Medlems register\MemberRegister\bin\Debug\MemberRegister.exe.config
+C:\Users\Andelina\Documents\GitHub\Scrum\Medlems register\MemberRegister\obj\Debug\MemberRegister.csprojResolveAssemblyReference.cache
+C:\Users\Andelina\Documents\GitHub\Scrum\Medlems register\MemberRegister\bin\Debug\MemberRegister.exe
+C:\Users\Andelina\Documents\GitHub\Scrum\Medlems register\MemberRegister\bin\Debug\MemberRegister.pdb
+C:\Users\Andelina\Documents\GitHub\Scrum\Medlems register\MemberRegister\obj\Debug\MemberRegister.exe
+C:\Users\Andelina\Documents\GitHub\Scrum\Medlems register\MemberRegister\obj\Debug\MemberRegister.pdb
