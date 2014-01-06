@@ -82,5 +82,81 @@ namespace MemberRegister
 
             return m;
         }
+
+        public void Save(List<Member> members)
+        {
+
+            using (StreamWriter sw = new StreamWriter(Path))
+            {
+                foreach (Member member in members)
+                {
+                    sw.WriteLine("[Name]");
+                    sw.WriteLine(member.Name);
+                    sw.WriteLine("[Number]");
+                    sw.WriteLine(member.PhoneNumber);
+                    sw.WriteLine("[ID]");
+                    sw.WriteLine(member.ID);
+                }
+            }
+        }
+
+        public List<Member> AddNewMember(List<Member> members)
+        {
+            string name;
+            int number;
+            string phoneNumber = "";
+            bool ok = true;
+            int ID = 0, choice;
+
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(" ╔═══════════════════════════════╗ ");
+            Console.WriteLine(" ║       Add a new member        ║ ");
+            Console.WriteLine(" ╚═══════════════════════════════╝ ");
+            Console.ResetColor();
+
+            do
+            {
+                Console.WriteLine("Enter name: ");
+                name = Console.ReadLine();
+                if (String.IsNullOrWhiteSpace(name))
+                {
+                    Console.WriteLine("The string cannot be empty or white space, try again? 1 = yes 0 = no");
+                    if ((int.TryParse(Console.ReadLine(), out choice) && choice >= 0 && choice <= 1))
+                    {
+                        if (choice == 1)
+                        {
+                            continue;
+                        }
+                        else
+                            return members;
+                    }
+                }
+
+                Console.WriteLine("Enter Phone number: ");
+                while (ok)
+                {
+                    if ((int.TryParse(Console.ReadLine(), out number) && number > 0))
+                    {
+                        phoneNumber = phoneNumber + number;
+                        ok = false;
+                    }
+                    else
+                        Console.WriteLine("You didn't enter a allowed phone number. There can only be numbers.");
+                }
+
+                ID = members.Count;
+                //Lägg till ID
+            } while (ok);
+
+            if (ID != 0)
+            {
+                members.Add(new Member(name, phoneNumber, ID));
+            }
+            
+
+            return members;
+        }
     }
 }

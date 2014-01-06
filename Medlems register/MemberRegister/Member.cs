@@ -57,6 +57,13 @@ namespace MemberRegister
             //Do not think there is need for more.
         }
 
+        public Member(string name, string phoneNumber, int id)
+        {
+            Name = name;
+            PhoneNumber = phoneNumber;
+            ID = id;
+        }
+
         public void AddNumber(string number)
         {
             PhoneNumber = number;

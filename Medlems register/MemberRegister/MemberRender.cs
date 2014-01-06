@@ -10,11 +10,13 @@ namespace MemberRegister
     {
         public void Render(List<Member> members)
         {
+            HeaderRender("===========================");
             foreach (Member member in members)
             {
                 Console.Write(member.ID + " ");
                 Console.WriteLine(member.Name + "\n");
             }
+            HeaderRender("===========================");
         }
 
         private static void HeaderRender(string header)
