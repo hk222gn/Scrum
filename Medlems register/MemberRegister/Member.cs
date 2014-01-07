@@ -6,16 +6,9 @@ using System.Threading.Tasks;
 
 namespace MemberRegister
 {
-    //förnamn, efternamn och telefonnummer, ett unikt medlemsnummer
-
-    //public struct MemberInformation
-    //{
-    //    public string PhoneNumber { get; set; }
-    //}
-    class Member//: IComparable, IComparable<Member>
+    class Member
     {
-        //private List<MemberInformation> _memberInformation;
-        private string _name; //Full name.
+        private string _name;
         private string _phoneNumber;
         private int _ID;
 
@@ -46,15 +39,9 @@ namespace MemberRegister
             }
         }
 
-        //public IReadOnlyCollection<MemberInformation> MemberInformation
-        //{
-        //    get { return _memberInformation.AsReadOnly(); }
-        //}
-
         public Member(string name)
         {
             Name = name;
-            //Do not think there is need for more.
         }
 
         public Member(string name, string phoneNumber, int id)

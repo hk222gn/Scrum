@@ -23,12 +23,10 @@ namespace MemberRegister
 
                     case 1:
                         AddMemberToList(members);
-                        //Add a new member
                         break;
 
                     case 2:
                         RemoveMember(members);
-                        //Delete member
                         break;
 
                     case 3: 
@@ -39,19 +37,14 @@ namespace MemberRegister
                         break;
 
                     case 5:
-                        //Render specific member
+                        //Render specific member.
                         //RenderMembers(members); Use the ID to get a specific members information.
                         //RenderMember(ID);
-                        break;
-                    case 6:
-                        SaveMembersToFile(members);
                         break;
 		            default:
                         break;
 	            }
             } while (true);
-
-
         }
 
         private static List<Member> LoadRegister()
@@ -83,6 +76,7 @@ namespace MemberRegister
             {
                 throw new ArgumentException("Something went wrong when trying to add a new member.");
             }
+            SaveMembersToFile(members);
         }
 
         private static void RemoveMember(List<Member> members)
@@ -90,7 +84,7 @@ namespace MemberRegister
 
 
             //When a member is deleted, their unique ID will be reset, meaning, using a foreach loop, they all will be given a new id starting from 0, to ensure noone gets the same ID.
-
+            SaveMembersToFile(members);
         }
 
         private static void RenderMembers(List<Member> members, bool viewAll = false)
@@ -147,7 +141,7 @@ namespace MemberRegister
                 Console.WriteLine("\n================================================\n");
                 Console.Write("Enter choice [0-5]: ");
 
-                if (!(int.TryParse(Console.ReadLine(), out choice) && choice >= 0 && choice <= 6))
+                if (!(int.TryParse(Console.ReadLine(), out choice) && choice >= 0 && choice <= 5))
                 {
                     Console.WriteLine("You have to enter a number in the range of 0-5.");
                     Thread.Sleep(1000);

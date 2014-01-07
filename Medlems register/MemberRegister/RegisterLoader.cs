@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MemberRegister
@@ -98,6 +99,9 @@ namespace MemberRegister
                     sw.WriteLine(member.ID);
                 }
             }
+            Console.WriteLine("Members saved.");
+            Thread.Sleep(1000);
+            Console.Clear();
         }
 
         public List<Member> AddNewMember(List<Member> members)
@@ -106,7 +110,7 @@ namespace MemberRegister
             int number;
             string phoneNumber = "";
             bool ok = true;
-            int ID = 0, choice;
+            int ID = 0;
 
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Black;
@@ -118,43 +122,52 @@ namespace MemberRegister
 
             do
             {
-                Console.WriteLine("Enter name: ");
+                Console.Write("Enter full name: ");
                 name = Console.ReadLine();
                 if (String.IsNullOrWhiteSpace(name))
                 {
-                    Console.WriteLine("The string cannot be empty or white space, try again? 1 = yes 0 = no");
-                    if ((int.TryParse(Console.ReadLine(), out choice) && choice >= 0 && choice <= 1))
+                    Console.WriteLine("The string cannot be empty or white space, try again? j/n");
+                    if (Console.ReadKey(true).Key == ConsoleKey.J)
                     {
-                        if (choice == 1)
-                        {
-                            continue;
-                        }
-                        else
-                            return members;
+                        continue;
                     }
+                    else
+                         return members;
                 }
 
-                Console.WriteLine("Enter Phone number: ");
+                
                 while (ok)
                 {
+                    Console.Write("Enter Phone number: ");
+                    Console.WriteLine();
                     if ((int.TryParse(Console.ReadLine(), out number) && number > 0))
                     {
                         phoneNumber = phoneNumber + number;
                         ok = false;
                     }
                     else
-                        Console.WriteLine("You didn't enter a allowed phone number. There can only be numbers.");
+                    {
+                        Console.Write("You did not enter a allowed phone number, try again? j/n");
+                        if (Console.ReadKey(true).Key == ConsoleKey.J)
+                        {
+                            continue;
+                            
+                        }
+                        else
+                            return members;
+                    }
                 }
 
                 ID = members.Count;
-                //Lägg till ID
             } while (ok);
 
             if (ID != 0)
             {
                 members.Add(new Member(name, phoneNumber, ID));
+                Console.WriteLine("Member added to register.");
+                Thread.Sleep(1000);
+                Console.Clear();
             }
-            
 
             return members;
         }

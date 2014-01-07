@@ -13,8 +13,7 @@ namespace MemberRegister
             HeaderRender("===========================");
             foreach (Member member in members)
             {
-                Console.Write(member.ID + " ");
-                Console.WriteLine(member.Name + "\n");
+                Console.WriteLine(String.Format("ID: {0} \nName: {1} \n", member.ID, member.Name));
             }
             HeaderRender("===========================");
         }
@@ -23,7 +22,7 @@ namespace MemberRegister
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("!    {0}    !\n", header);
+            Console.WriteLine("==={0}============\n", header);
             Console.ResetColor();
         }
     }
