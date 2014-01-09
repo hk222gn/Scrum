@@ -24,7 +24,7 @@ namespace MemberRegister
             {
                 if (String.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException("The path string is null or empty.");
+                    throw new ArgumentException("The string \"path\" is null or empty.");
                 }
                 _path = value;
             }

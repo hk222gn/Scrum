@@ -18,6 +18,11 @@ namespace MemberRegister
             HeaderRender("===========================");
         }
 
+        public void Render(Member member)
+        {
+            Console.WriteLine(String.Format("ID: {0} \nName: {1} \nPhone number: {2}\n", member.ID, member.Name, member.PhoneNumber));
+        }
+
         private static void HeaderRender(string header)
         {
             Console.ForegroundColor = ConsoleColor.White;

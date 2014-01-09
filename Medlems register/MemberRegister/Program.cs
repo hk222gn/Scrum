@@ -33,13 +33,11 @@ namespace MemberRegister
                         //Modify member
                         break;
                     case 4:
-                        RenderMembers(members);
+                        RenderMember(members);
                         break;
 
                     case 5:
-                        //Render specific member.
-                        //RenderMembers(members); Use the ID to get a specific members information.
-                        //RenderMember(ID);
+                        RenderMember(members, false);
                         break;
 		            default:
                         break;
@@ -79,6 +77,47 @@ namespace MemberRegister
             SaveMembersToFile(members);
         }
 
+        private static Member GetMember(string header, List<Member> members)
+        {
+            int choice;
+
+            //Visar en meny med recepten och ger användaren en möjlighet att välja ett av dem.
+            while (true)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine("╔════════════════════════════════╗");
+                Console.WriteLine("║{0}║", header);
+                Console.WriteLine("╚════════════════════════════════╝");
+                Console.ResetColor();
+                Console.WriteLine("0. Avsluta\n");
+                Console.WriteLine("----------------------");
+                for (int i = 0; i < members.Count; i++)
+                {
+                    Console.Write("{0}. ", i + 1);
+                    Console.WriteLine(members[i].Name);
+                }
+                Console.WriteLine("----------------------");
+                if (int.TryParse(Console.ReadLine(), out choice) && choice >= 0 && choice <= members.Count)
+                {
+                    if (choice == 0)
+                    {
+                        Console.Clear();
+                        return null;
+                    }
+                    break;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Du måste mata in ett heltal inom 0 till {0}", members.Count);
+                    ContinueOnKeyPressed();
+                }
+            }
+            return members[choice - 1];
+        }
+
         private static void RemoveMember(List<Member> members)
         {
 
@@ -87,11 +126,32 @@ namespace MemberRegister
             SaveMembersToFile(members);
         }
 
-        private static void RenderMembers(List<Member> members, bool viewAll = false)
+        private static void RenderMember(List<Member> members)
         {
             MemberRender mr = new MemberRender();
-            mr.Render(members);
+            mr.Render(members);//ändra, fel denna ska visa en
             ContinueOnKeyPressed();
+        }
+
+        private static void RenderMember(List<Member> members, bool viewAll = false)
+        {
+            MemberRender mr = new MemberRender();
+            Member m;
+            try
+            {
+                m = GetMember("   Choose a member to display   ", members);
+                if (m != null)
+                {
+                    Console.Clear();
+                    mr.Render(m);
+                    ContinueOnKeyPressed();
+                }
+            }
+            catch
+            {
+                throw new ArgumentException("Something went wrong when attempting to display the member list.");
+            }
+
         }
 
         private static void SaveMembersToFile(List<Member> members)
@@ -137,7 +197,6 @@ namespace MemberRegister
                 Console.WriteLine("3. Modify an existing member.");
                 Console.WriteLine("4. Render a list with all members");
                 Console.WriteLine("5. Render a specific member");
-                Console.WriteLine("6. Save the list.");
                 Console.WriteLine("\n================================================\n");
                 Console.Write("Enter choice [0-5]: ");
 
