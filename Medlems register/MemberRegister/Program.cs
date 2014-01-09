@@ -26,11 +26,11 @@ namespace MemberRegister
                         break;
 
                     case 2:
-                        RemoveMember(members);
+                        RemoveMember(members); // Not implemented!
                         break;
 
-                    case 3: 
-                        //Modify member
+                    case 3:
+                        ModifyMember(members); // Might want to fix the inputs, they can be whatever right now.
                         break;
                     case 4:
                         RenderMember(members);
@@ -116,6 +116,52 @@ namespace MemberRegister
                 }
             }
             return members[choice - 1];
+        }
+
+        private static void ModifyMember(List<Member> members)
+        {
+            Member m;
+            int choice;
+            string value = "";
+
+            try
+            {
+                m = GetMember("Choose a member to modify", members); //Should i get a index here instead?
+            }
+            catch
+            {
+                throw new ArgumentException("Something went wrong when trying to get the member list.");
+            }
+
+            do
+            {
+                Console.WriteLine("What do you want to modify?");
+                Console.WriteLine("0. Exit\n1. Full name\n2. Phone number\n");
+                Console.Write("Choice:");
+                if (int.TryParse(Console.ReadLine(), out choice) && choice >= 0 && choice <= 2)
+                {
+                    if (choice == 0)
+                    {
+                        break;
+                    }
+                    else if (choice == 1)
+                    {
+                        Console.Write("Enter a new name: ");
+                        value = Console.ReadLine();
+                        m.Name = value;
+                        break;
+                    }
+                    else
+                    {
+                        Console.Write("Enter a new phone number: ");
+                        value = Console.ReadLine();
+                        m.PhoneNumber = value;
+                        break;
+                    }
+                    
+                }
+            } while (true);
+            SaveMembersToFile(members);
         }
 
         private static void RemoveMember(List<Member> members)
