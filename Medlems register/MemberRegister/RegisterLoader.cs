@@ -126,7 +126,7 @@ namespace MemberRegister
                 name = Console.ReadLine();
                 if (String.IsNullOrWhiteSpace(name))
                 {
-                    Console.WriteLine("The string cannot be empty or white space, try again? j/n");
+                    Console.WriteLine("The string cannot be empty or whitespace, try again? j/n");
                     if (Console.ReadKey(true).Key == ConsoleKey.J)
                     {
                         continue;

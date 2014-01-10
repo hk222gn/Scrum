@@ -26,11 +26,11 @@ namespace MemberRegister
                         break;
 
                     case 2:
-                        RemoveMember(members); // Not implemented!
+                        RemoveMember(members); // Not implemented as of yet!
                         break;
 
                     case 3:
-                        ModifyMember(members); // Might want to fix the inputs, they can be whatever right now.
+                        ModifyMember(members);
                         break;
                     case 4:
                         RenderMember(members);
@@ -81,7 +81,7 @@ namespace MemberRegister
         {
             int choice;
 
-            //Visar en meny med recepten och ger användaren en möjlighet att välja ett av dem.
+            
             while (true)
             {
                 Console.Clear();
@@ -91,7 +91,7 @@ namespace MemberRegister
                 Console.WriteLine("║{0}║", header);
                 Console.WriteLine("╚════════════════════════════════╝");
                 Console.ResetColor();
-                Console.WriteLine("0. Avsluta\n");
+                Console.WriteLine("0. Exit\n");
                 Console.WriteLine("----------------------");
                 for (int i = 0; i < members.Count; i++)
                 {
@@ -111,7 +111,7 @@ namespace MemberRegister
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine("Du måste mata in ett heltal inom 0 till {0}", members.Count);
+                    Console.WriteLine("You must choose a number in the range of 1 to {0}", members.Count);
                     ContinueOnKeyPressed();
                 }
             }
@@ -122,7 +122,7 @@ namespace MemberRegister
         {
             Member m;
             int choice;
-            string value = "";
+            string value;
 
             try
             {
@@ -135,6 +135,9 @@ namespace MemberRegister
 
             do
             {
+                Console.Clear();
+                value = "";
+                Console.WriteLine(String.Format("Current Full Name: {0}\nCurrent Phone Number: {1}\n", m.Name, m.PhoneNumber));
                 Console.WriteLine("What do you want to modify?");
                 Console.WriteLine("0. Exit\n1. Full name\n2. Phone number\n");
                 Console.Write("Choice:");
@@ -149,14 +152,14 @@ namespace MemberRegister
                         Console.Write("Enter a new name: ");
                         value = Console.ReadLine();
                         m.Name = value;
-                        break;
+                        Console.Clear();
                     }
                     else
                     {
                         Console.Write("Enter a new phone number: ");
                         value = Console.ReadLine();
                         m.PhoneNumber = value;
-                        break;
+                        Console.Clear();
                     }
                     
                 }
@@ -169,13 +172,14 @@ namespace MemberRegister
 
 
             //When a member is deleted, their unique ID will be reset, meaning, using a foreach loop, they all will be given a new id starting from 0, to ensure noone gets the same ID.
+            // The above is not needed anymore
             SaveMembersToFile(members);
         }
 
         private static void RenderMember(List<Member> members)
         {
             MemberRender mr = new MemberRender();
-            mr.Render(members);//ändra, fel denna ska visa en
+            mr.Render(members);
             ContinueOnKeyPressed();
         }
 
@@ -216,7 +220,7 @@ namespace MemberRegister
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
-            Console.WriteLine("\nTryck en tangent för att fortsätta\n");
+            Console.WriteLine("\nPress any key to continue.\n");
             Console.ResetColor();
             Console.CursorVisible = false;
             Console.ReadKey(true);
