@@ -157,8 +157,7 @@ namespace MemberRegister
                             return members;
                     }
                 }
-                ID = members[members.Count - 1].ID + 1; //Should work better
-                //ID = members.Count;
+                ID = members[members.Count - 1].ID + 1;
             } while (ok);
 
             if (ID != 0)

@@ -26,7 +26,7 @@ namespace MemberRegister
                         break;
 
                     case 2:
-                        RemoveMember(members); // Not implemented as of yet!
+                        RemoveMember(members);
                         break;
 
                     case 3:
@@ -169,11 +169,32 @@ namespace MemberRegister
 
         private static void RemoveMember(List<Member> members)
         {
+            Member m;
 
-
-            //When a member is deleted, their unique ID will be reset, meaning, using a foreach loop, they all will be given a new id starting from 0, to ensure noone gets the same ID.
-            // The above is not needed anymore
-            SaveMembersToFile(members);
+            while (true)
+            {
+                m = GetMember("   Choose a member to remove    ", members);
+                if (m != null)
+                {
+                    Console.BackgroundColor = ConsoleColor.Yellow;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.WriteLine("Are you sure you want to delete {0}? j/n", m);
+                    Console.ResetColor();
+                    if (Console.ReadKey(true).Key == ConsoleKey.J)
+                    {
+                        members.Remove(m);
+                        Console.Clear();
+                        Console.WriteLine("Member deleted.");
+                        Thread.Sleep(1000);
+                        SaveMembersToFile(members);
+                    }
+                }
+                else
+                {
+                    Console.Clear();
+                    break;
+                }
+            }
         }
 
         private static void RenderMember(List<Member> members)
