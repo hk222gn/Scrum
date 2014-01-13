@@ -81,7 +81,7 @@ namespace MemberRegister
         {
             int choice;
 
-            
+            //Renders a list of members, lets you choose one, and then returns it.
             while (true)
             {
                 Console.Clear();
@@ -123,10 +123,11 @@ namespace MemberRegister
             Member m;
             int choice;
             string value;
+            int number;
 
             try
             {
-                m = GetMember("Choose a member to modify", members); //Should i get a index here instead?
+                m = GetMember("    Choose a member to modify   ", members);
             }
             catch
             {
@@ -135,7 +136,12 @@ namespace MemberRegister
 
             do
             {
+
                 Console.Clear();
+                if (m == null)
+                {
+                    break;
+                }
                 value = "";
                 Console.WriteLine(String.Format("Current Full Name: {0}\nCurrent Phone Number: {1}\n", m.Name, m.PhoneNumber));
                 Console.WriteLine("What do you want to modify?");
@@ -151,13 +157,46 @@ namespace MemberRegister
                     {
                         Console.Write("Enter a new name: ");
                         value = Console.ReadLine();
+                        if (String.IsNullOrWhiteSpace(value))
+                        {
+                            Console.BackgroundColor = ConsoleColor.Yellow;
+                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.WriteLine("The string cannot be empty or whitespace, try again? j/n");
+                            Console.ResetColor();
+                            if (Console.ReadKey(true).Key == ConsoleKey.J)
+                            {
+                                continue;
+                            }
+                            else
+                                break;
+                        }
                         m.Name = value;
                         Console.Clear();
                     }
                     else
                     {
-                        Console.Write("Enter a new phone number: ");
-                        value = Console.ReadLine();
+                        while (true)
+                        {
+                            Console.Write("Enter a new phone number: ");
+                            if ((int.TryParse(Console.ReadLine(), out number) && number > 0))
+                            {
+                                value = value + number;
+                                break;
+                            }
+                            else
+                            {
+                                Console.BackgroundColor = ConsoleColor.Yellow;
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.WriteLine("You did not enter a allowed phone number, try again? j/n");
+                                Console.ResetColor();
+                                if (Console.ReadKey(true).Key == ConsoleKey.J)
+                                {
+                                    continue;
+                                }
+                                else
+                                    break;
+                            }
+                        }
                         m.PhoneNumber = value;
                         Console.Clear();
                     }
@@ -199,6 +238,7 @@ namespace MemberRegister
 
         private static void RenderMember(List<Member> members)
         {
+            //Renders all members in the list
             MemberRender mr = new MemberRender();
             mr.Render(members);
             ContinueOnKeyPressed();
@@ -206,6 +246,7 @@ namespace MemberRegister
 
         private static void RenderMember(List<Member> members, bool viewAll = false)
         {
+            //Renders a specific member
             MemberRender mr = new MemberRender();
             Member m;
             try

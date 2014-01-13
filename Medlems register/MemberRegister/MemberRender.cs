@@ -10,6 +10,8 @@ namespace MemberRegister
     {
         public void Render(List<Member> members)
         {
+            //Render all members.
+            Console.Clear();
             HeaderRender("===========================");
             foreach (Member member in members)
             {
@@ -20,6 +22,7 @@ namespace MemberRegister
 
         public void Render(Member member)
         {
+            //Renders a specific member
             Console.WriteLine(String.Format("ID: {0} \nName: {1} \nPhone number: {2}\n", member.ID, member.Name, member.PhoneNumber));
         }
 

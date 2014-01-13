@@ -36,6 +36,8 @@ namespace MemberRegister
         }
         public List<Member> Load()
         {
+            //Reads the member list from the file.
+
             int index = -1;
             string line;
             List<Member> m = new List<Member>();
@@ -86,6 +88,7 @@ namespace MemberRegister
 
         public void Save(List<Member> members)
         {
+            //Writes the member list to the file.
 
             using (StreamWriter sw = new StreamWriter(Path))
             {
@@ -139,7 +142,6 @@ namespace MemberRegister
                 while (ok)
                 {
                     Console.Write("Enter Phone number: ");
-                    Console.WriteLine();
                     if ((int.TryParse(Console.ReadLine(), out number) && number > 0))
                     {
                         phoneNumber = phoneNumber + number;
@@ -147,9 +149,13 @@ namespace MemberRegister
                     }
                     else
                     {
+                        Console.BackgroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = ConsoleColor.Black;
                         Console.Write("You did not enter a allowed phone number, try again? j/n");
+                        Console.ResetColor();
                         if (Console.ReadKey(true).Key == ConsoleKey.J)
                         {
+                            Console.WriteLine();
                             continue;
                             
                         }
